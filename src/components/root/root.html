@@ -1,1 +1,10 @@
-<div>sso-root works!</div>
+<div lw-if="!user">
+   Username <input type="text" lw-model="username">
+   Password <input type="password" lw-model="password">
+   <button lw-on:click="login()">Login</button>
+   <button lw-on:click="signup()">Signup</button>
+</div>
+<div lw-if="!!user">
+   <span lw>user?.username</span>
+   <button lw-on:click="logout()">Logout</button>
+</div>

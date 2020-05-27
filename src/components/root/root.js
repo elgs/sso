@@ -1,41 +1,38 @@
 import LWElement from './../../lib/lw-element.js';
 import ast from './ast.js';
 
+import { api, http } from '../../services/http-client.js';
+
 customElements.define('sso-root',
    class extends LWElement {  // LWElement extends HTMLElement
       constructor() {
          super(ast);
       }
 
-      // derived from LWElement
-      // domReady() {
-      //    console.log('Dom is ready');
-      // }
+      username = "root";
+      password = "scandisk";
 
-      // inputReady() {
-      //    console.log('input is ready');
-      // }
+      async login() {
+         const response = await http.post('login', {
+            _0: this.username,
+            _1: this.password,
+         });
+         if (response.token) {
+            localStorage.setItem('access_token', response.token);
+         }
+         if (response.data) {
+            this.user = response.data?.[0]?.[0];
+         }
+         this.update();
+      }
 
-      // derived from HTMLElement
-      // connectedCallback() {
-      //    console.log(this.isConnected);
-      //    console.log('Element added to page.');
-      // }
-
-      // disconnectedCallback() {
-      //    console.log('Element removed from page.');
-      // }
-
-      // adoptedCallback() {
-      //    console.log('Element moved to new page.');
-      // }
-
-      // static get observedAttributes() {
-      //    return [];
-      // }
-
-      // attributeChangedCallback(name, oldValue, newValue) {
-      //    console.log(name, oldValue, newValue);
-      // }
+      async logout() {
+         const token = localStorage.getItem('access_token');
+         if (token) {
+            await api.post('logout');
+            delete this.user;
+         }
+         this.update();
+      }
    }
 );
