@@ -1,10 +1,7 @@
-<div lw-if="!user">
-   Username <input type="text" lw-model="username">
-   Password <input type="password" lw-model="password">
-   <button lw-on:click="login()">Login</button>
-   <button lw-on:click="signup()">Signup</button>
-</div>
-<div lw-if="!!user">
+<sso-login lw-if="context.show==='login'"></sso-login>
+<sso-signup lw-if="context.show==='signup'"></sso-signup>
+
+<div lw-if="!!context.user">
    <span lw>user?.username</span>
    <button lw-on:click="logout()">Logout</button>
 </div>
