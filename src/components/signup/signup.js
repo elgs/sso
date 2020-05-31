@@ -9,6 +9,7 @@ customElements.define('sso-signup',
       constructor() {
          super(ast);
          this.context = context;
+         console.log('in signup');
       }
 
       async signup() {
@@ -21,12 +22,12 @@ customElements.define('sso-signup',
             const email = response.data?.[0]?.[0];
             console.log(email);
          }
-         // this.context.show = 'dashboard';
+         this.urlHash = '#/verify-user';
          document.querySelector('sso-root').update();
       }
 
       login() {
-         this.context.show = 'login';
+         this.urlHash = '#/login';
          document.querySelector('sso-root').update();
       }
    }

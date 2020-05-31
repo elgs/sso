@@ -9,6 +9,7 @@ customElements.define('sso-login',
       constructor() {
          super(ast);
          this.context = context;
+         console.log('in login');
       }
 
       async login() {
@@ -22,12 +23,12 @@ customElements.define('sso-login',
          if (response.data) {
             this.context.user = response.data?.[0]?.[0];
          }
-         this.context.show = 'dashboard';
+         this.urlHash = '#/dashboard';
          document.querySelector('sso-root').update();
       }
 
       signup() {
-         this.context.show = 'signup';
+         this.urlHash = '#/signup';
          document.querySelector('sso-root').update();
       }
    }

@@ -9,6 +9,7 @@ customElements.define('sso-root',
       constructor() {
          super(ast);
          this.context = context;
+         this.urlHash = '#/login';
       }
 
       async logout() {
@@ -17,7 +18,7 @@ customElements.define('sso-root',
             await api.post('logout');
             delete this.context.user;
          }
-         this.context.show = 'login';
+         this.urlHash = '#/login';
          this.update();
       }
    }

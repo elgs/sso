@@ -1,5 +1,6 @@
-<sso-login lw-if="context.show==='login'"></sso-login>
-<sso-signup lw-if="context.show==='signup'"></sso-signup>
+<sso-login lw-if="urlHash==='#/login'"></sso-login>
+<sso-signup lw-if="urlHash==='#/signup'"></sso-signup>
+<sso-verify-password lw-if="urlHash==='#/verify-user'"></sso-verify-password>
 
 <div lw-if="!!context.user">
    <span lw>user?.username</span>
