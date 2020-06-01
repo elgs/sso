@@ -20,10 +20,8 @@ customElements.define('sso-login',
          if (response.token) {
             localStorage.setItem('access_token', response.token);
          }
-         if (response.data) {
-            this.context.user = response.data?.[0]?.[0];
-         }
          this.urlHash = '#/dashboard';
+         document.querySelector('sso-root').shadowRoot.querySelector('sso-dashboard').update();
          document.querySelector('sso-root').update();
       }
 

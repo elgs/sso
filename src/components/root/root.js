@@ -9,17 +9,9 @@ customElements.define('sso-root',
       constructor() {
          super(ast);
          this.context = context;
-         this.urlHash = '#/login';
-      }
-
-      async logout() {
-         const token = localStorage.getItem('access_token');
-         if (token) {
-            await api.post('logout');
-            delete this.context.user;
+         if (!this.context.user) {
+            this.urlHash = '#/login';
          }
-         this.urlHash = '#/login';
-         this.update();
       }
    }
 );

@@ -31,5 +31,8 @@ class HttpClient {
    options(url, data, headers) { return this._fetch('OPTIONS', url, data, headers); }
 }
 
-export const api = new HttpClient('https://sso.az.ht:1443', true);
-export const http = new HttpClient('https://sso.az.ht:1443');
+// const apiUrl = 'https://sso.az.ht:1443';
+const apiUrl = 'http://127.0.0.1:1103';
+
+export const api = new HttpClient(apiUrl, true);
+export const http = new HttpClient(apiUrl);

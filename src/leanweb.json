@@ -8,7 +8,8 @@
     "change-password",
     "forget-password",
     "verify-password",
-    "reset-password"
+    "reset-password",
+    "dashboard"
   ],
   "resources": [
     "resources/"
