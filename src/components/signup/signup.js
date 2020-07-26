@@ -9,26 +9,25 @@ customElements.define('sso-signup',
       constructor() {
          super(ast);
          this.context = context;
-         console.log('in signup');
       }
 
       async signup() {
          const response = await http.post('signup', {
-            _0: this.username,
-            _1: this.email,
-            _2: this.password,
+            params: [
+               this.username,
+               this.email,
+               this.password,
+            ]
          });
          if (response.data?.length) {
             const email = response.data?.[0]?.[0];
             console.log(email);
          }
          this.urlHash = '#/verify-user';
-         document.querySelector('sso-root').update();
       }
 
       login() {
          this.urlHash = '#/login';
-         document.querySelector('sso-root').update();
       }
    }
 );

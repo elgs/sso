@@ -18,13 +18,13 @@ class HttpClient {
       const response = await fetch(url, {
          method,
          headers: { ...this.defaultHeaders, ...headers },
-         body: JSON.stringify(data),
+         body: data ? JSON.stringify(data) : null,
       });
       return response.json();
    }
 
    post(url, data, headers) { return this._fetch('POST', url, data, headers); }
-   get(url, data, headers) { return this._fetch('GET', url, data, headers); }
+   get(url, headers) { return this._fetch('GET', url, null, headers); }
    patch(url, data, headers) { return this._fetch('PATCH', url, data, headers); }
    delete(url, data, headers) { return this._fetch('DELETE', url, data, headers); }
    put(url, data, headers) { return this._fetch('PUT', url, data, headers); }
@@ -32,7 +32,7 @@ class HttpClient {
 }
 
 // const apiUrl = 'https://sso.az.ht:1443';
-const apiUrl = 'http://127.0.0.1:1103';
+const apiUrl = 'http://rpi:1103';
 
 export const api = new HttpClient(apiUrl, true);
 export const http = new HttpClient(apiUrl);

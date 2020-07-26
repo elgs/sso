@@ -9,25 +9,29 @@ customElements.define('sso-login',
       constructor() {
          super(ast);
          this.context = context;
-         console.log('in login');
+         console.log('login');
       }
 
       async login() {
-         const response = await http.post('login', {
-            _0: this.username,
-            _1: this.password,
+         const login = await http.post('login', {
+            params: [this.username, this.password]
          });
-         if (response.token) {
-            localStorage.setItem('access_token', response.token);
+
+         if (!login.access_token) {
+            alert('login failed');
+            return;
          }
+
+         localStorage.setItem('access_token', login.access_token);
+
+         await this.context.session();
          this.urlHash = '#/dashboard';
-         document.querySelector('sso-root').shadowRoot.querySelector('sso-dashboard').update();
-         document.querySelector('sso-root').update();
+         // document.querySelector('sso-root').shadowRoot.querySelector('sso-dashboard').update();
       }
 
       signup() {
          this.urlHash = '#/signup';
-         document.querySelector('sso-root').update();
       }
+
    }
 );

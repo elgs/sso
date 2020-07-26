@@ -1,6 +1,6 @@
 {
   "name": "sso",
-  "version": "0.5.0",
+  "version": "0.6.3",
   "components": [
     "root",
     "login",
@@ -11,6 +11,7 @@
     "reset-password",
     "dashboard"
   ],
+  "imports": [],
   "resources": [
     "resources/"
   ],

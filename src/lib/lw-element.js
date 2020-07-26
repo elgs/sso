@@ -20,8 +20,26 @@ export default class LWElement extends HTMLElement {
    constructor(ast) {
       super();
       this.ast = ast;
+
+      globalThis['leanweb'] = globalThis['leanweb'] ?? {
+         runtimeVersion: ast.runtimeVersion,
+         builderVersion: ast.builderVersion,
+      };
+
+      this.glw = globalThis['leanweb'];
+      if (!this.glw.componentsListeningOnUrlChanges) {
+         this.glw.componentsListeningOnUrlChanges = [];
+         globalThis.addEventListener('hashchange', () => {
+            this.glw.componentsListeningOnUrlChanges.forEach(component => {
+               setTimeout(() => {
+                  component?.urlHashChanged?.call(component);
+               });
+            });
+         }, false);
+      }
+
       const node = document.createElement('template');
-      node.innerHTML = `<link rel="stylesheet" href="./global-styles.css">` +
+      node.innerHTML = '<style>' + ast.globalCss + '</style>' +
          '<style>' + ast.css + '</style>' +
          ast.html;
       this.attachShadow({ mode: 'open' }).appendChild(node.content);
@@ -30,6 +48,10 @@ export default class LWElement extends HTMLElement {
          this.update(this.shadowRoot);
          this.domReady?.call(this);
       });
+
+      if (this.urlHashChanged && typeof this.urlHashChanged === 'function') {
+         this.glw.componentsListeningOnUrlChanges.push(this);
+      }
    }
 
    set urlHash(hash) {
@@ -40,7 +62,11 @@ export default class LWElement extends HTMLElement {
       return location.hash;
    }
 
-   static eventBus = new LWEventBus();
+   static get eventBus() {
+      const glw = globalThis['leanweb']
+      glw['event-bus'] = glw['event-bus'] ?? new LWEventBus();
+      return glw['event-bus'];
+   };
 
    _getNodeContext(node) {
       const contextNode = node.closest('[lw-context]');
@@ -108,7 +134,7 @@ export default class LWElement extends HTMLElement {
    }
 
    async _bindMethods() {
-      const methodNames = [];
+      const methodNames = ['update', 'applyStyles'];
       const proto = Object.getPrototypeOf(this);
       methodNames.push(...Object.getOwnPropertyNames(proto).filter(name => hasMethod(proto, name)));
       methodNames.push(...Object.getOwnPropertyNames(this).filter(name => hasMethod(this, name)));

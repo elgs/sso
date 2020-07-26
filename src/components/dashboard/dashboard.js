@@ -9,17 +9,22 @@ customElements.define('sso-dashboard',
       constructor() {
          super(ast);
          this.context = context;
-         console.log('in dashboard');
+         LWElement.eventBus.addEventListener('user', user => {
+            this.update();
+         });
+
+         console.log('dashboard');
       }
 
       async logout() {
-         const token = localStorage.getItem('access_token');
-         if (token) {
-            await api.post('logout');
-            localStorage.removeItem('access_token');
-         }
+         await api.post('logout');
+         localStorage.removeItem('access_token');
+         this.context.user = null;
          this.urlHash = '#/login';
-         document.querySelector('sso-root').update();
+      }
+
+      urlHashChanged() {
+         this.update();
       }
    }
 );

@@ -20,7 +20,6 @@ customElements.define('sso-verify-password',
             console.log(email);
          }
          this.urlHash = '#/dashboard';
-         document.querySelector('sso-root').update();
       }
    }
 );
