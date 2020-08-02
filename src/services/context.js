@@ -1,15 +1,27 @@
-import { api } from './http-client.js';
 import LWElement from '../lib/lw-element.js';
-
+import { api, http } from './http-client.js';
 
 export const context = {
    user: null,
 
-   async session() {
-      if (!this.user) {
+   async session(force = false) {
+      if (force || !this.user) {
          this.user = await api.get('session');
       }
-      LWElement.eventBus.dispatchEvent('user', this.user);
       return this.user;
+   },
+
+   async login(username, password) {
+      const login = await http.post('login', {
+         params: [username, password]
+      });
+
+      if (!login.access_token) {
+         return;
+      }
+
+      localStorage.setItem('access_token', login.access_token);
+
+      return await this.session(true);
    }
 };

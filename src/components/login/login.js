@@ -13,20 +13,17 @@ customElements.define('sso-login',
       }
 
       async login() {
-         const login = await http.post('login', {
-            params: [this.username, this.password]
-         });
-
-         if (!login.access_token) {
-            alert('login failed');
+         const user = await this.context.login(this.username, this.password);
+         if (!user) {
+            alert('Login failed.');
             return;
          }
 
-         localStorage.setItem('access_token', login.access_token);
-
-         await this.context.session();
-         this.urlHash = '#/dashboard';
-         // document.querySelector('sso-root').shadowRoot.querySelector('sso-dashboard').update();
+         if (user?.user_flag === 'signup') {
+            this.urlHash = '#/verify-user';
+         } else {
+            this.urlHash = '#/dashboard';
+         }
       }
 
       signup() {

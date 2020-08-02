@@ -32,7 +32,7 @@ class HttpClient {
 }
 
 // const apiUrl = 'https://sso.az.ht:1443';
-const apiUrl = 'http://rpi:1103';
+const apiUrl = 'http://localhost:1103';
 
 export const api = new HttpClient(apiUrl, true);
 export const http = new HttpClient(apiUrl);

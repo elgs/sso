@@ -12,14 +12,15 @@ customElements.define('sso-verify-password',
       }
 
       async verify() {
-         const response = await http.post('verify-user', {
-            _0: this.verificationCode,
+         const response = await api.post('verify-user', {
+            params: [this.verificationCode],
          });
-         if (response.data?.length) {
-            const email = response.data?.[0]?.[0];
-            console.log(email);
+         if (response === 1) {
+            this.context.session(true);
+            this.urlHash = '#/dashboard';
+         } else {
+            alert('Verification failed.')
          }
-         this.urlHash = '#/dashboard';
       }
    }
 );

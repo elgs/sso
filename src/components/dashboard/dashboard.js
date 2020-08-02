@@ -9,11 +9,13 @@ customElements.define('sso-dashboard',
       constructor() {
          super(ast);
          this.context = context;
-         LWElement.eventBus.addEventListener('user', user => {
-            this.update();
-         });
 
          console.log('dashboard');
+      }
+
+      async domReady() {
+         await this.context.session();
+         this.update();
       }
 
       async logout() {

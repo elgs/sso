@@ -19,12 +19,17 @@ customElements.define('sso-signup',
                this.password,
             ]
          });
-         if (response.data?.length) {
-            const email = response.data?.[0]?.[0];
-            console.log(email);
+
+         if (response === 1) {
+            const user = await this.context.login(this.username, this.password);
+            if (user?.user_flag === 'signup') {
+               this.urlHash = '#/verify-user';
+            } else {
+               this.urlHash = '#/dashboard';
+            }
          }
-         this.urlHash = '#/verify-user';
       }
+
 
       login() {
          this.urlHash = '#/login';
