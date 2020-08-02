@@ -7,7 +7,7 @@
     "signup",
     "change-password",
     "forget-password",
-    "verify-password",
+    "verify-user",
     "reset-password",
     "dashboard"
   ],
