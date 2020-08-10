@@ -17,7 +17,9 @@ customElements.define('sso-root',
          if (!this.context.user) {
             this.urlHashPath = '#/login';
          } else {
-            this.urlHashPath = '#/dashboard';
+            if (!this.urlHashPath) {
+               this.urlHashPath = '#/dashboard';
+            }
          }
       }
 

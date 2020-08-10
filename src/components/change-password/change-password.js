@@ -1,5 +1,6 @@
 import LWElement from './../../lib/lw-element.js';
 import ast from './ast.js';
+import { api } from '../../services/http-client.js';
 
 customElements.define('sso-change-password',
    class extends LWElement {  // LWElement extends HTMLElement
@@ -7,35 +8,15 @@ customElements.define('sso-change-password',
          super(ast);
       }
 
-      // derived from LWElement
-      // domReady() {
-      //    console.log('Dom is ready');
-      // }
-
-      // inputReady() {
-      //    console.log('input is ready');
-      // }
-
-      // derived from HTMLElement
-      // connectedCallback() {
-      //    console.log(this.isConnected);
-      //    console.log('Element added to page.');
-      // }
-
-      // disconnectedCallback() {
-      //    console.log('Element removed from page.');
-      // }
-
-      // adoptedCallback() {
-      //    console.log('Element moved to new page.');
-      // }
-
-      // static get observedAttributes() {
-      //    return [];
-      // }
-
-      // attributeChangedCallback(name, oldValue, newValue) {
-      //    console.log(name, oldValue, newValue);
-      // }
+      async changePassword() {
+         const response = await api.post(`change-password`, {
+            params: [this.newPassword, this.oldPassword],
+         });
+         if (response?.change_password !== 1) {
+            alert('Change password failed.');
+         } else {
+            this.urlHashPath = '#/dashboard';
+         }
+      }
    }
 );
