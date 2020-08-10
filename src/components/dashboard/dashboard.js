@@ -25,6 +25,10 @@ customElements.define('sso-dashboard',
          this.urlHashPath = '#/dashboard/change-password'
       }
 
+      resetPassword() {
+         this.urlHashPath = '#/dashboard/reset-password'
+      }
+
       urlHashChanged() {
          this.update();
       }

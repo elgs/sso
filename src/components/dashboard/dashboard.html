@@ -1,4 +1,6 @@
 <span lw>context.user?.email</span>
 <button lw-on:click="logout()">Logout</button>
 <button lw-on:click="changePassword()">Change Password</button>
+<button lw-on:click="resetPassword()" lw-if="context.user?.mode==='root'">Reset Password</button>
 <sso-change-password lw-if="urlHashPath==='#/dashboard/change-password'"></sso-change-password>
+<sso-reset-password lw-if="urlHashPath==='#/dashboard/reset-password'"></sso-reset-password>

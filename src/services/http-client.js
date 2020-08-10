@@ -1,4 +1,4 @@
-class HttpClient {
+class APIClient {
    constructor(baesUrl, sendToken = false, defaultHeaders = {}) {
       this.baesUrl = baesUrl;
       this.sendToken = sendToken;
@@ -34,5 +34,5 @@ class HttpClient {
 // const apiUrl = 'https://sso.az.ht:1443';
 const apiUrl = 'http://localhost:1103';
 
-export const api = new HttpClient(apiUrl, true);
-export const http = new HttpClient(apiUrl);
+export const api = new APIClient(apiUrl, true);
+export const http = new APIClient(apiUrl);
