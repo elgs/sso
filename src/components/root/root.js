@@ -10,14 +10,15 @@ customElements.define('sso-root',
          super(ast);
          this.context = context;
          console.log('root');
-         this.context.session().then(() => {
-            if (!this.context.user) {
-               this.urlHashPath = '#/login';
-            } else {
-               this.urlHashPath = '#/dashboard';
-               // document.querySelector('sso-root').update();
-            }
-         });
+      }
+
+      async domReady() {
+         await this.context.session();
+         if (!this.context.user) {
+            this.urlHashPath = '#/login';
+         } else {
+            this.urlHashPath = '#/dashboard';
+         }
       }
 
       urlHashChanged() {

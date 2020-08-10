@@ -7,6 +7,7 @@ export const context = {
    async session(force = false) {
       if (force || !this.user) {
          this.user = await api.get('session');
+         leanweb.eventBus.dispatchEvent('update');
       }
       return this.user;
    },

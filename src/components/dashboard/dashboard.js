@@ -13,16 +13,16 @@ customElements.define('sso-dashboard',
          console.log('dashboard');
       }
 
-      async domReady() {
-         await this.context.session();
-         this.update();
-      }
 
       async logout() {
          await api.post('logout');
          localStorage.removeItem('access_token');
          this.context.user = null;
          this.urlHashPath = '#/login';
+      }
+
+      changePassword() {
+         this.urlHashPath = '#/dashboard/change-password'
       }
 
       urlHashChanged() {

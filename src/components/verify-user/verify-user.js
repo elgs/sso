@@ -15,7 +15,7 @@ customElements.define('sso-verify-user',
          const response = await api.post('verify-user', {
             params: [this.verificationCode],
          });
-         if (response === 1) {
+         if (response?.delete_flag === 1) {
             this.context.session(true);
             this.urlHashPath = '#/dashboard';
          } else {
