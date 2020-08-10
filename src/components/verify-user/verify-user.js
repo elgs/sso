@@ -17,7 +17,7 @@ customElements.define('sso-verify-user',
          });
          if (response === 1) {
             this.context.session(true);
-            this.urlHash = '#/dashboard';
+            this.urlHashPath = '#/dashboard';
          } else {
             alert('Verification failed.')
          }

@@ -22,7 +22,7 @@ customElements.define('sso-dashboard',
          await api.post('logout');
          localStorage.removeItem('access_token');
          this.context.user = null;
-         this.urlHash = '#/login';
+         this.urlHashPath = '#/login';
       }
 
       urlHashChanged() {

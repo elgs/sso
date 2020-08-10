@@ -20,19 +20,21 @@ customElements.define('sso-signup',
             ]
          });
 
-         if (response === 1) {
+         if (response?.length === 2 && response[0] === 1 && response[1] === 1) {
             const user = await this.context.login(this.username, this.password);
-            if (user?.user_flag === 'signup') {
-               this.urlHash = '#/verify-user';
+            if (user?.flags?.signup !== undefined && user?.flags?.signup !== null) {
+               this.urlHashPath = '#/verify-user';
             } else {
-               this.urlHash = '#/dashboard';
+               this.urlHashPath = '#/dashboard';
             }
+         } else {
+            alert('signup_failed');
          }
       }
 
 
       login() {
-         this.urlHash = '#/login';
+         this.urlHashPath = '#/login';
       }
    }
 );

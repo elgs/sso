@@ -19,15 +19,19 @@ customElements.define('sso-login',
             return;
          }
 
-         if (user?.user_flag === 'signup') {
-            this.urlHash = '#/verify-user';
+         if (user?.flags?.signup !== undefined && user?.flags?.signup !== null) {
+            this.urlHashPath = '#/verify-user';
          } else {
-            this.urlHash = '#/dashboard';
+            this.urlHashPath = '#/dashboard';
          }
       }
 
+      forgetPassword() {
+         this.urlHashPath = '#/forget-password-send-code';
+      }
+
       signup() {
-         this.urlHash = '#/signup';
+         this.urlHashPath = '#/signup';
       }
 
    }

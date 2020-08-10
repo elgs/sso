@@ -1,4 +1,5 @@
-<sso-login lw-if="urlHash==='#/login'"></sso-login>
-<sso-signup lw-if="urlHash==='#/signup'"></sso-signup>
-<sso-verify-user lw-if="urlHash==='#/verify-user'"></sso-verify-user>
-<sso-dashboard lw-if="urlHash==='#/dashboard'"></sso-dashboard>
+<sso-login lw-if="urlHashPath==='#/login'"></sso-login>
+<sso-signup lw-if="urlHashPath==='#/signup'"></sso-signup>
+<sso-verify-user lw-if="urlHashPath==='#/verify-user'"></sso-verify-user>
+<sso-dashboard lw-if="urlHashPath==='#/dashboard'"></sso-dashboard>
+<sso-forget-password lw-if="urlHashPath.startsWith('#/forget-password')"></sso-forget-password>

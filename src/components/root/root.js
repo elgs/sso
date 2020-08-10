@@ -12,9 +12,9 @@ customElements.define('sso-root',
          console.log('root');
          this.context.session().then(() => {
             if (!this.context.user) {
-               this.urlHash = '#/login';
+               this.urlHashPath = '#/login';
             } else {
-               this.urlHash = '#/dashboard';
+               this.urlHashPath = '#/dashboard';
                // document.querySelector('sso-root').update();
             }
          });

@@ -1,5 +1,6 @@
 import LWElement from './../../lib/lw-element.js';
 import ast from './ast.js';
+import { http } from '../../services/http-client.js';
 
 customElements.define('sso-forget-password',
    class extends LWElement {  // LWElement extends HTMLElement
@@ -7,35 +8,28 @@ customElements.define('sso-forget-password',
          super(ast);
       }
 
-      // derived from LWElement
-      // domReady() {
-      //    console.log('Dom is ready');
-      // }
+      async sendCode() {
+         const response = await http.post('forget-password-send-code', {
+            params: [this.username],
+         });
 
-      // inputReady() {
-      //    console.log('input is ready');
-      // }
+         this.urlHashPath = '#/forget-password-reset-password';
+      }
 
-      // derived from HTMLElement
-      // connectedCallback() {
-      //    console.log(this.isConnected);
-      //    console.log('Element added to page.');
-      // }
+      async resetPassword() {
+         const response = await http.post(`forget-password-reset-password`, {
+            params: [this.username, this.password, this.vCode],
+         });
 
-      // disconnectedCallback() {
-      //    console.log('Element removed from page.');
-      // }
+         if (response?.change_password === 1) {
+            this.urlHashPath = '#/login';
+         } else {
+            alert('failed to reset password');
+         }
+      }
 
-      // adoptedCallback() {
-      //    console.log('Element moved to new page.');
-      // }
-
-      // static get observedAttributes() {
-      //    return [];
-      // }
-
-      // attributeChangedCallback(name, oldValue, newValue) {
-      //    console.log(name, oldValue, newValue);
-      // }
+      urlHashChanged() {
+         this.update();
+      }
    }
 );
