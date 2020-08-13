@@ -13,16 +13,26 @@ export const context = {
    },
 
    async login(username, password) {
+      const accessToken = await this.getAccessToken(username, password);
+
+      if (accessToken) {
+         localStorage.setItem('access_token', accessToken);
+      }
+
+      return await this.session(true);
+   },
+
+   async loginSSO(username, password, returnUrl) {
+      const accessToken = await this.getAccessToken(username, password);
+      if (accessToken) {
+         location.href = returnUrl + '?access_token=' + accessToken;
+      }
+   },
+
+   async getAccessToken(username, password) {
       const login = await http.post('login', {
          params: [username, password]
       });
-
-      if (!login.access_token) {
-         return;
-      }
-
-      localStorage.setItem('access_token', login.access_token);
-
-      return await this.session(true);
+      return login.access_token;
    }
 };
