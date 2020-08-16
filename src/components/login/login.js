@@ -26,11 +26,8 @@ customElements.define('sso-login',
          }
       }
 
-      async loginSSO() {
-         const user = await this.context.loginSSO(this.username, this.password, 'http://localhost:2030');
-         if (!user) {
-            alert('Login failed.');
-         }
+      loginSSO() {
+         this.context.loginSSO(this.username, this.password);
       }
 
       forgetPassword() {

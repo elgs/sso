@@ -9,7 +9,10 @@ customElements.define('sso-root',
       constructor() {
          super(ast);
          this.context = context;
-         console.log('root');
+         delete this.context.return_url;
+         delete this.context.token_key;
+         this.context.return_url = this.urlHashParams.return_url;
+         this.context.token_key = this.urlHashParams.token_key;
       }
 
       async domReady() {

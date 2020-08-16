@@ -1,4 +1,3 @@
-import LWElement from '../lib/lw-element.js';
 import { api, http } from './http-client.js';
 
 export const context = {
@@ -22,10 +21,17 @@ export const context = {
       return await this.session(true);
    },
 
-   async loginSSO(username, password, returnUrl) {
+   async loginSSO(username, password) {
       const accessToken = await this.getAccessToken(username, password);
       if (accessToken) {
-         location.href = returnUrl + '?access_token=' + accessToken;
+         if (this.return_url.indexOf('?') > 0) {
+            location.href = this.return_url + '&' + (this.token_key ?? 'access_token') + '=' + accessToken;
+         } else {
+            location.href = this.return_url + '?' + (this.token_key ?? 'access_token') + '=' + accessToken;
+         }
+
+      } else {
+         alert('login_failed');
       }
    },
 
