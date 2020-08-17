@@ -20,9 +20,9 @@ customElements.define('sso-login',
          }
 
          if (user?.flags?.signup !== undefined && user?.flags?.signup !== null) {
-            this.urlHashPath = '#/verify-user';
+            leanweb.urlHashPath = '#/verify-user';
          } else {
-            this.urlHashPath = '#/dashboard';
+            leanweb.urlHashPath = '#/dashboard';
          }
       }
 
@@ -31,11 +31,11 @@ customElements.define('sso-login',
       }
 
       forgetPassword() {
-         this.urlHashPath = '#/forget-password-send-code';
+         leanweb.urlHashPath = '#/forget-password-send-code';
       }
 
       signup() {
-         this.urlHashPath = '#/signup';
+         leanweb.urlHashPath = '#/signup';
       }
 
    }

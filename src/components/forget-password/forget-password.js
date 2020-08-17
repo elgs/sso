@@ -13,7 +13,7 @@ customElements.define('sso-forget-password',
             params: [this.username],
          });
 
-         this.urlHashPath = '#/forget-password-reset-password';
+         leanweb.urlHashPath = '#/forget-password-reset-password';
       }
 
       async resetPassword() {
@@ -22,7 +22,7 @@ customElements.define('sso-forget-password',
          });
 
          if (response?.change_password === 1) {
-            this.urlHashPath = '#/login';
+            leanweb.urlHashPath = '#/login';
          } else {
             alert('failed to reset password');
          }

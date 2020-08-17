@@ -15,7 +15,7 @@ customElements.define('sso-change-password',
          if (response?.change_password !== 1) {
             alert('Change password failed.');
          } else {
-            this.urlHashPath = '#/dashboard';
+            leanweb.urlHashPath = '#/dashboard';
          }
       }
    }

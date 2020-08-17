@@ -17,7 +17,7 @@ customElements.define('sso-verify-user',
          });
          if (response?.delete_flag === 1) {
             this.context.session(true);
-            this.urlHashPath = '#/dashboard';
+            leanweb.urlHashPath = '#/dashboard';
          } else {
             alert('Verification failed.')
          }

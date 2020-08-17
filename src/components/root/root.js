@@ -11,17 +11,17 @@ customElements.define('sso-root',
          this.context = context;
          delete this.context.return_url;
          delete this.context.token_key;
-         this.context.return_url = this.urlHashParams.return_url;
-         this.context.token_key = this.urlHashParams.token_key;
+         this.context.return_url = leanweb.urlHashParams.return_url;
+         this.context.token_key = leanweb.urlHashParams.token_key;
       }
 
       async domReady() {
          await this.context.session();
          if (!this.context.user) {
-            this.urlHashPath = '#/login';
+            leanweb.urlHashPath = '#/login';
          } else {
-            if (!this.urlHashPath) {
-               this.urlHashPath = '#/dashboard';
+            if (!leanweb.urlHashPath) {
+               leanweb.urlHashPath = '#/dashboard';
             }
          }
       }

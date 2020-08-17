@@ -18,15 +18,15 @@ customElements.define('sso-dashboard',
          await api.post('logout');
          localStorage.removeItem('access_token');
          this.context.user = null;
-         this.urlHashPath = '#/login';
+         leanweb.urlHashPath = '#/login';
       }
 
       changePassword() {
-         this.urlHashPath = '#/dashboard/change-password'
+         leanweb.urlHashPath = '#/dashboard/change-password'
       }
 
       resetPassword() {
-         this.urlHashPath = '#/dashboard/reset-password'
+         leanweb.urlHashPath = '#/dashboard/reset-password'
       }
 
       urlHashChanged() {

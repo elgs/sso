@@ -24,9 +24,9 @@ customElements.define('sso-signup',
          if (response?.signup === 1 && response?.create_flag === 1) {
             const user = await this.context.login(this.username, this.password);
             if (user?.flags?.signup !== undefined && user?.flags?.signup !== null) {
-               this.urlHashPath = '#/verify-user';
+               leanweb.urlHashPath = '#/verify-user';
             } else {
-               this.urlHashPath = '#/dashboard';
+               leanweb.urlHashPath = '#/dashboard';
             }
          } else {
             alert('signup_failed');
@@ -35,7 +35,7 @@ customElements.define('sso-signup',
 
 
       login() {
-         this.urlHashPath = '#/login';
+         leanweb.urlHashPath = '#/login';
       }
    }
 );
