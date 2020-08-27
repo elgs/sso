@@ -3,7 +3,7 @@ export default {
       const alertElement = document.createElement('sso-alert');
       document.documentElement.appendChild(alertElement);
       alertElement.level = 'is-' + (options?.level ?? 'info');
-      alertElement.title = options?.level ?? 'Information';
+      alertElement.title = options?.title ?? 'Information';
       alertElement.message = options?.message ?? 'options: title, level, message; levels: info, success, warning, danger';
       alertElement.update();
       const modal = alertElement.shadowRoot.querySelector('.modal');
@@ -11,6 +11,7 @@ export default {
       modal.querySelectorAll('.delete,.modal-background,.modal-close')?.forEach(elem => {
          elem.addEventListener('click', e => {
             modal.classList.remove('is-active');
+            alertElement.remove();
          });
       });
    },

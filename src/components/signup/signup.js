@@ -3,6 +3,7 @@ import ast from './ast.js';
 
 import { api, http } from '../../services/http-client.js';
 import { context } from '../../services/context.js';
+import dialog from '../../services/dialog.js';
 
 customElements.define('sso-signup',
    class extends LWElement {  // LWElement extends HTMLElement
@@ -17,6 +18,8 @@ customElements.define('sso-signup',
       }
 
       async signup() {
+         this.isLoading = true;
+         this.update();
          const response = await http.post('signup', {
             params: [
                this.username,
@@ -24,6 +27,7 @@ customElements.define('sso-signup',
                this.password,
             ]
          });
+         this.isLoading = false;
 
          if (response?.signup === 1 && response?.create_flag === 1) {
             const user = await this.context.login(this.username, this.password);
@@ -33,10 +37,13 @@ customElements.define('sso-signup',
                leanweb.urlHashPath = '#/dashboard';
             }
          } else {
-            alert('signup_failed');
+            dialog.alert({
+               level: 'danger',
+               title: 'Failed',
+               message: 'Signup failed.'
+            });
          }
       }
-
 
       backToLogin() {
          leanweb.urlHashPath = '#/login';

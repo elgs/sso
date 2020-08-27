@@ -23,7 +23,6 @@ customElements.define('sso-login',
          this.update();
          const user = await this.context.login(this.username, this.password);
          this.isLoading = false;
-         this.update();
          if (!user) {
             dialog.alert({
                level: 'danger',

@@ -1,2 +1,16 @@
-Verification Code <input type="text" lw-model="verificationCode">
-<button lw-on:click="verify()">Verify</button>
+<div class="card container">
+   <div class="field">
+      <div class="control has-icons-left">
+         <input type="text" class="input" lw-model="verificationCode" placeholder="Verification Code" auto-focus>
+         <span class="icon is-small is-left">
+            <i class="fas fa-key"></i>
+         </span>
+      </div>
+   </div>
+   <div class="buttons">
+      <button class="button is-primary is-fullwidth" lw-class:is-loading="isLoading"
+         lw-on:click="verify()">Verify</button>
+      <button class="button is-link is-inverted is-small is-fullwidth" lw-on:click="backToLogin()">Back to
+         Login</button>
+   </div>
+</div>

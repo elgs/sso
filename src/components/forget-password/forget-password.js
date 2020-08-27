@@ -25,7 +25,6 @@ customElements.define('sso-forget-password',
             params: [this.username],
          });
          this.isLoading = false;
-         this.update();
 
          leanweb.urlHashPath = '#/forget-password-reset-password';
       }
@@ -37,7 +36,6 @@ customElements.define('sso-forget-password',
             params: [this.username, this.password, this.vCode],
          });
          this.isLoading = false;
-         this.update();
 
          if (response?.change_password === 1) {
             leanweb.urlHashPath = '#/login';
