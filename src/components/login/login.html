@@ -1,6 +1,27 @@
-Username <input type="text" lw-model="username">
-Password <input type="password" lw-model="password">
-<button lw-on:click="login()">Login</button>
-<button lw-on:click="loginSSO()" lw-if="context.return_url">LoginSSO</button>
-<button lw-on:click="forgetPassword()">Forget Password</button>
-<button lw-on:click="signup()">Signup</button>
+<div class="card container">
+   <div class="field">
+      <div class="control has-icons-left">
+         <input type="text" class="input" lw-model="username" placeholder="Username/Email" auto-focus>
+         <span class="icon is-small is-left">
+            <i class="fas fa-envelope"></i>
+         </span>
+      </div>
+   </div>
+   <div class="field">
+      <div class="control has-icons-left">
+         <input type="password" class="input" lw-model="password" placeholder="Password">
+         <span class="icon is-small is-left">
+            <i class="fas fa-lock"></i>
+         </span>
+      </div>
+   </div>
+   <div class="buttons">
+      <button class="button is-primary is-fullwidth" lw-class:is-loading="isLoading"
+         lw-on:click="login()">Login</button>
+      <button class="button" lw-on:click="loginSSO()" lw-if="context.return_url">LoginSSO</button>
+      <button class="button is-link is-inverted is-small is-fullwidth" lw-on:click="forgetPassword()">Forget
+         Password</button>
+      <button class="button is-link is-inverted is-small is-fullwidth" lw-on:click="signup()">Signup a new
+         account</button>
+   </div>
+</div>

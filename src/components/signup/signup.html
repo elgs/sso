@@ -1,5 +1,30 @@
-Username <input type="text" lw-model="username">
-Email <input type="email" lw-model="email">
-Password <input type="password" lw-model="password">
-<button lw-on:click="signup()">Signup</button>
-<button lw-on:click="login()">Login</button>
+<div class="card container">
+   <div class="field">
+      <div class="control has-icons-left">
+         <input type="text" class="input" lw-model="username" placeholder="Username" auto-focus>
+         <span class="icon is-small is-left">
+            <i class="fas fa-user"></i>
+         </span>
+      </div>
+   </div>
+   <div class="field">
+      <div class="control has-icons-left">
+         <input type="email" class="input" lw-model="email" placeholder="Email">
+         <span class="icon is-small is-left">
+            <i class="fas fa-envelope"></i>
+         </span>
+      </div>
+   </div>
+   <div class="field">
+      <div class="control has-icons-left">
+         <input type="password" class="input" lw-model="password" placeholder="Password">
+         <span class="icon is-small is-left">
+            <i class="fas fa-lock"></i>
+         </span>
+      </div>
+   </div>
+   <div class="buttons">
+      <button class="button is-primary is-fullwidth" lw-on:click="signup()">Signup</button>
+      <button class="button is-link is-inverted is-small is-fullwidth" lw-on:click="backToLogin()">Back to Login</button>
+   </div>
+</div>

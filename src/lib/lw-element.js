@@ -110,9 +110,12 @@ export default class LWElement extends HTMLElement {
          ast.html;
       this.attachShadow({ mode: 'open' }).appendChild(node.content);
 
-      this._bindMethods().then(() => {
+      this._bindMethods();
+      setTimeout(() => {
          this.update(this.shadowRoot);
-         this.domReady?.call(this);
+         setTimeout(() => {
+            this.domReady?.call(this);
+         });
       });
 
       if (this.urlHashChanged && typeof this.urlHashChanged === 'function') {
@@ -189,7 +192,7 @@ export default class LWElement extends HTMLElement {
       while (treeWalker.nextNode()) { }
    }
 
-   async _bindMethods() {
+   _bindMethods() {
       const methodNames = ['update', 'applyStyles'];
       const proto = Object.getPrototypeOf(this);
       methodNames.push(...Object.getOwnPropertyNames(proto).filter(name => hasMethod(proto, name)));
@@ -211,7 +214,7 @@ export default class LWElement extends HTMLElement {
          }
       }
       inputNode?.inputReady?.call(this);
-      inputNode?.update?.();
+      inputNode?.update?.call(this);
    }
 
    // properties:
@@ -231,8 +234,10 @@ export default class LWElement extends HTMLElement {
             eventNode.addEventListener(interpolation.lwValue, (event => {
                const eventContext = { '$event': event };
                const parsed = parser.evaluate(interpolation.ast, [eventContext, ...context], interpolation.loc);
-               this.update();
-               return parsed;
+               if (typeof parsed?.[0]?.then !== 'function') {
+                  this.update();
+               }
+               return parsed[0];
             }).bind(this));
          }
       }
@@ -350,10 +355,17 @@ export default class LWElement extends HTMLElement {
       const interpolation = this.ast[key];
       const parsed = parser.evaluate(interpolation.ast, context, interpolation.loc);
 
-      if (!parsed[0]) {
-         ifNode.setAttribute('lw-false', '');
+      const hasLwFalse = ifNode.hasAttribute('lw-false');
+      if (parsed[0]) {
+         hasLwFalse && ifNode.removeAttribute('lw-false');
+         setTimeout(() => {
+            ifNode.turnedOn?.call(ifNode);
+         });
       } else {
-         ifNode.removeAttribute('lw-false');
+         !hasLwFalse && ifNode.setAttribute('lw-false', '');
+         setTimeout(() => {
+            ifNode.turnedOff?.call(ifNode);
+         });
       }
    }
 
@@ -385,10 +397,14 @@ export default class LWElement extends HTMLElement {
             const interpolation = this.ast[attrValue];
             const parsed = parser.evaluate(interpolation.ast, context, interpolation.loc);
 
-            if (!parsed[0]) {
-               bindNode.removeAttribute(interpolation.lwValue);
+            if (parsed[0]) {
+               if (interpolation.lwValue === 'class') {
+                  bindNode.classList.add(parsed[0]);
+               } else {
+                  bindNode.setAttribute(interpolation.lwValue, parsed[0]);
+               }
             } else {
-               bindNode.setAttribute(interpolation.lwValue, parsed[0]);
+               bindNode.removeAttribute(interpolation.lwValue);
             }
          }
       }

@@ -1,6 +1,7 @@
 import LWElement from './../../lib/lw-element.js';
 import ast from './ast.js';
 import { http } from '../../services/http-client.js';
+import dialog from '../../services/dialog.js';
 
 customElements.define('sso-forget-password',
    class extends LWElement {  // LWElement extends HTMLElement
@@ -8,28 +9,53 @@ customElements.define('sso-forget-password',
          super(ast);
       }
 
+      turnedOn() {
+         const autoFocusInputs = this.shadowRoot.querySelectorAll('.auto-focus');
+         if (leanweb.urlHashPath === '#/forget-password-send-code') {
+            autoFocusInputs?.[0]?.focus();
+         } else if (leanweb.urlHashPath === '#/forget-password-reset-password') {
+            autoFocusInputs?.[1]?.focus();
+         }
+      }
+
       async sendCode() {
+         this.isLoading = true;
+         this.update();
          const response = await http.post('forget-password-send-code', {
             params: [this.username],
          });
+         this.isLoading = false;
+         this.update();
 
          leanweb.urlHashPath = '#/forget-password-reset-password';
       }
 
       async resetPassword() {
+         this.isLoading = true;
+         this.update();
          const response = await http.post(`forget-password-reset-password`, {
             params: [this.username, this.password, this.vCode],
          });
+         this.isLoading = false;
+         this.update();
 
          if (response?.change_password === 1) {
             leanweb.urlHashPath = '#/login';
          } else {
-            alert('failed to reset password');
+            dialog.alert({
+               level: 'danger',
+               title: 'Failed',
+               message: 'Change password failed.'
+            });
          }
       }
 
       urlHashChanged() {
          this.update();
+      }
+
+      backToLogin() {
+         leanweb.urlHashPath = '#/login';
       }
    }
 );

@@ -12,6 +12,10 @@ customElements.define('sso-signup',
          console.log('signup');
       }
 
+      turnedOn() {
+         this.shadowRoot.querySelector('input:not([lw-false])[auto-focus]')?.focus();
+      }
+
       async signup() {
          const response = await http.post('signup', {
             params: [
@@ -34,7 +38,7 @@ customElements.define('sso-signup',
       }
 
 
-      login() {
+      backToLogin() {
          leanweb.urlHashPath = '#/login';
       }
    }
