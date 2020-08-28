@@ -2,7 +2,6 @@ import { context } from '../../services/context.js';
 import LWElement from './../../lib/lw-element.js';
 import ast from './ast.js';
 
-
 customElements.define('sso-dashboard',
    class extends LWElement {  // LWElement extends HTMLElement
       constructor() {

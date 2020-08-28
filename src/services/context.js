@@ -30,7 +30,7 @@ export const context = {
 
    async getAccessToken(username, password) {
       const login = await http.post('login', {
-         params: [username, password]
+         params: [username, password, this.return_url]
       });
       return login.access_token;
    }
