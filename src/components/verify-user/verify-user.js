@@ -32,7 +32,9 @@ customElements.define('sso-verify-user',
                title: 'Failed',
                message: 'Verification failed.'
             });
+            return;
          }
+         this.verificationCode = '';
       }
 
       backToLogin() {

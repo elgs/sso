@@ -35,6 +35,13 @@ export const context = {
       }
    },
 
+   async logout() {
+      await api.post('logout');
+      localStorage.removeItem('access_token');
+      this.user = null;
+      leanweb.urlHashPath = '#/login';
+   },
+
    async getAccessToken(username, password) {
       const login = await http.post('login', {
          params: [username, password]

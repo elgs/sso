@@ -1,5 +1,8 @@
-<sso-login lw-if="leanweb.urlHashPath==='#/login'"></sso-login>
-<sso-signup lw-if="leanweb.urlHashPath==='#/signup'"></sso-signup>
-<sso-verify-user lw-if="leanweb.urlHashPath==='#/verify-user'"></sso-verify-user>
+<div class="center-box" lw-if="!leanweb.urlHashPath.startsWith('#/dashboard')">
+   <sso-login lw-if="leanweb.urlHashPath==='#/login'"></sso-login>
+   <sso-signup lw-if="leanweb.urlHashPath==='#/signup'"></sso-signup>
+   <sso-verify-user lw-if="leanweb.urlHashPath==='#/verify-user'"></sso-verify-user>
+   <sso-forget-password lw-if="leanweb.urlHashPath.startsWith('#/forget-password')"></sso-forget-password>
+</div>
+
 <sso-dashboard lw-if="leanweb.urlHashPath.startsWith('#/dashboard')"></sso-dashboard>
-<sso-forget-password lw-if="leanweb.urlHashPath.startsWith('#/forget-password')"></sso-forget-password>

@@ -1,6 +1,7 @@
 import LWElement from './../../lib/lw-element.js';
 import ast from './ast.js';
 import { api } from '../../services/http-client.js';
+import dialog from '../../services/dialog.js';
 
 customElements.define('sso-reset-password',
    class extends LWElement {  // LWElement extends HTMLElement
@@ -8,18 +9,34 @@ customElements.define('sso-reset-password',
          super(ast);
       }
 
+      turnedOn() {
+         this.shadowRoot.querySelector('input:not([lw-false])[auto-focus]')?.focus();
+      }
+
       async resetPassword() {
+         this.isLoading = true;
+         this.update();
          const response = await api.post(`reset-password`, {
             params: [this.username, this.newPassword],
          });
+         this.isLoading = false;
          if (response.err) {
-            alert(response.err);
+            dialog.alert({
+               level: 'danger',
+               title: 'Failed',
+               message: response.err
+            });
+            return;
          } else if (response?.reset_password === 1) {
             this.username = '';
             this.newPassword = '';
-            this.update();
          } else {
-            alert('Reset password failed.');
+            dialog.alert({
+               level: 'danger',
+               title: 'Failed',
+               message: 'Reset password failed.'
+            });
+            return;
          }
       }
    }

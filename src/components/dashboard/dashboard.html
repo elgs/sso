@@ -1,6 +1,17 @@
-<span lw>context.user?.email</span>
-<button lw-on:click="logout()">Logout</button>
-<button lw-on:click="changePassword()">Change Password</button>
-<button lw-on:click="resetPassword()" lw-if="context.user?.mode==='root'">Reset Password</button>
-<sso-change-password lw-if="leanweb.urlHashPath==='#/dashboard/change-password'"></sso-change-password>
-<sso-reset-password lw-if="leanweb.urlHashPath==='#/dashboard/reset-password'"></sso-reset-password>
+<nav class="navbar is-fixed-top is-light">
+   <div class="navbar-item has-dropdown is-hoverable">
+      <a class="navbar-link" lw-on:click="toDashboard()" lw>context.user?.email</a>
+
+      <div class="navbar-dropdown">
+         <a class="navbar-item" lw-on:click="changePassword()">Change Password</a>
+         <a class="navbar-item" lw-on:click="resetPassword()" lw-if="context.user?.mode==='root'">Reset Password</a>
+         <hr class="navbar-divider">
+         <a class="navbar-item" lw-on:click="context.logout()">Logout</a>
+      </div>
+   </div>
+</nav>
+
+<div class="center-box">
+   <sso-change-password lw-if="leanweb.urlHashPath==='#/dashboard/change-password'"></sso-change-password>
+   <sso-reset-password lw-if="leanweb.urlHashPath==='#/dashboard/reset-password'"></sso-reset-password>
+</div>

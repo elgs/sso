@@ -13,12 +13,8 @@ customElements.define('sso-dashboard',
          console.log('dashboard');
       }
 
-
-      async logout() {
-         await api.post('logout');
-         localStorage.removeItem('access_token');
-         this.context.user = null;
-         leanweb.urlHashPath = '#/login';
+      toDashboard() {
+         leanweb.urlHashPath = '#/dashboard'
       }
 
       changePassword() {

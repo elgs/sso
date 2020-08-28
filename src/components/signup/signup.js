@@ -42,7 +42,12 @@ customElements.define('sso-signup',
                title: 'Failed',
                message: 'Signup failed.'
             });
+            return;
          }
+
+         this.username = '';
+         this.email = '';
+         this.password = '';
       }
 
       backToLogin() {

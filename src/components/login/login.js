@@ -11,7 +11,6 @@ customElements.define('sso-login',
       constructor() {
          super(ast);
          this.context = context;
-         console.log('login');
       }
 
       turnedOn() {
@@ -31,6 +30,9 @@ customElements.define('sso-login',
             });
             return;
          }
+
+         this.username = '';
+         this.password = '';
 
          if (user?.flags?.signup !== undefined && user?.flags?.signup !== null) {
             leanweb.urlHashPath = '#/verify-user';

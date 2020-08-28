@@ -45,7 +45,12 @@ customElements.define('sso-forget-password',
                title: 'Failed',
                message: 'Change password failed.'
             });
+            return;
          }
+
+         this.username = '';
+         this.password = '';
+         this.vCode = '';
       }
 
       urlHashChanged() {
