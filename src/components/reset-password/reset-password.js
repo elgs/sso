@@ -13,7 +13,10 @@ customElements.define('sso-reset-password',
          this.shadowRoot.querySelector('input:not([lw-false])[auto-focus]')?.focus();
       }
 
-      async resetPassword() {
+      async resetPassword(event) {
+         if (event && event.key !== 'Enter') {
+            return;
+         }
          this.isLoading = true;
          this.update();
          const response = await api.post(`reset-password`, {

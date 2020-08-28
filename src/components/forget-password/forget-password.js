@@ -18,7 +18,10 @@ customElements.define('sso-forget-password',
          }
       }
 
-      async sendCode() {
+      async sendCode(event) {
+         if (event && event.key !== 'Enter') {
+            return;
+         }
          this.isLoading = true;
          this.update();
          const response = await http.post('forget-password-send-code', {
@@ -29,7 +32,10 @@ customElements.define('sso-forget-password',
          leanweb.urlHashPath = '#/forget-password-reset-password';
       }
 
-      async resetPassword() {
+      async resetPassword(event) {
+         if (event && event.key !== 'Enter') {
+            return;
+         }
          this.isLoading = true;
          this.update();
          const response = await http.post(`forget-password-reset-password`, {

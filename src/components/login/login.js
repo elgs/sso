@@ -17,11 +17,16 @@ customElements.define('sso-login',
          this.shadowRoot.querySelector('input:not([lw-false])[auto-focus]')?.focus();
       }
 
-      async login() {
+      async login(event) {
+         if (event && event.key !== 'Enter') {
+            return;
+         }
          this.isLoading = true;
          this.update();
          const user = await this.context.login(this.username, this.password);
          this.isLoading = false;
+         this.username = '';
+         this.password = '';
          if (!user) {
             dialog.alert({
                level: 'danger',
@@ -30,9 +35,6 @@ customElements.define('sso-login',
             });
             return;
          }
-
-         this.username = '';
-         this.password = '';
 
          if (user?.flags?.signup !== undefined && user?.flags?.signup !== null) {
             leanweb.urlHashPath = '#/verify-user';

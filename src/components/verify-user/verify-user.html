@@ -1,7 +1,8 @@
 <div class="card container">
    <div class="field">
       <div class="control has-icons-left">
-         <input type="text" class="input" lw-model="verificationCode" placeholder="Verification Code" auto-focus>
+         <input type="text" class="input" lw-model="verificationCode" placeholder="Verification Code"
+            lw-on:keyup="verify($event)" auto-focus>
          <span class="icon is-small is-left">
             <i class="fas fa-key"></i>
          </span>

@@ -13,7 +13,10 @@ customElements.define('sso-change-password',
          this.shadowRoot.querySelector('input:not([lw-false])[auto-focus]')?.focus();
       }
 
-      async changePassword() {
+      async changePassword(event) {
+         if (event && event.key !== 'Enter') {
+            return;
+         }
          this.isLoading = true;
          this.update();
          const response = await api.post(`change-password`, {

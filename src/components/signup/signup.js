@@ -17,7 +17,10 @@ customElements.define('sso-signup',
          this.shadowRoot.querySelector('input:not([lw-false])[auto-focus]')?.focus();
       }
 
-      async signup() {
+      async signup(event) {
+         if (event && event.key !== 'Enter') {
+            return;
+         }
          this.isLoading = true;
          this.update();
          const response = await http.post('signup', {

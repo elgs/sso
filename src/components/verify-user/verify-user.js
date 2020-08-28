@@ -16,7 +16,10 @@ customElements.define('sso-verify-user',
          this.shadowRoot.querySelector('input:not([lw-false])[auto-focus]')?.focus();
       }
 
-      async verify() {
+      async verify(event) {
+         if (event && event.key !== 'Enter') {
+            return;
+         }
          this.isLoading = true;
          this.update();
          const response = await api.post('verify-user', {
