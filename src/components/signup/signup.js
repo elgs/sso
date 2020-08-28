@@ -1,16 +1,15 @@
+import { context } from '../../services/context.js';
+import dialog from '../../services/dialog.js';
+import { http } from '../../services/http-client.js';
 import LWElement from './../../lib/lw-element.js';
 import ast from './ast.js';
 
-import { api, http } from '../../services/http-client.js';
-import { context } from '../../services/context.js';
-import dialog from '../../services/dialog.js';
 
 customElements.define('sso-signup',
    class extends LWElement {  // LWElement extends HTMLElement
       constructor() {
          super(ast);
          this.context = context;
-         console.log('signup');
       }
 
       turnedOn() {

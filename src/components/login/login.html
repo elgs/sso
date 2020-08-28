@@ -16,9 +16,10 @@
       </div>
    </div>
    <div class="buttons">
-      <button class="button is-primary is-fullwidth" lw-class:is-loading="isLoading"
-         lw-on:click="login()">Login</button>
-      <button class="button" lw-on:click="loginSSO()" lw-if="context.return_url">LoginSSO</button>
+      <button class="button is-primary is-fullwidth" lw-class:is-loading="isLoading" lw-on:click="loginLocal()"
+         lw-if="!context.return_url">Login</button>
+      <button class="button is-primary is-fullwidth" lw-class:is-loading="isLoading" lw-on:click="loginSSO()"
+         lw-if="context.return_url">Login</button>
       <button class="button is-link is-inverted is-small is-fullwidth" lw-on:click="forgetPassword()">Forget
          Password</button>
       <button class="button is-link is-inverted is-small is-fullwidth" lw-on:click="signup()">Signup a new

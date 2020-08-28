@@ -1,7 +1,7 @@
+import dialog from '../../services/dialog.js';
+import { api } from '../../services/http-client.js';
 import LWElement from './../../lib/lw-element.js';
 import ast from './ast.js';
-import { api } from '../../services/http-client.js';
-import dialog from '../../services/dialog.js';
 
 customElements.define('sso-change-password',
    class extends LWElement {  // LWElement extends HTMLElement

@@ -21,20 +21,6 @@ export const context = {
       return await this.session(true);
    },
 
-   async loginSSO(username, password) {
-      const accessToken = await this.getAccessToken(username, password);
-      if (accessToken) {
-         if (this.return_url.indexOf('?') > 0) {
-            location.href = this.return_url + '&' + (this.token_key ?? 'access_token') + '=' + accessToken;
-         } else {
-            location.href = this.return_url + '?' + (this.token_key ?? 'access_token') + '=' + accessToken;
-         }
-
-      } else {
-         alert('login_failed');
-      }
-   },
-
    async logout() {
       await api.post('logout');
       localStorage.removeItem('access_token');

@@ -1,9 +1,9 @@
+import { context } from '../../services/context.js';
+import dialog from '../../services/dialog.js';
+import { api } from '../../services/http-client.js';
 import LWElement from './../../lib/lw-element.js';
 import ast from './ast.js';
 
-import { api, http } from '../../services/http-client.js';
-import { context } from '../../services/context.js';
-import dialog from '../../services/dialog.js';
 
 customElements.define('sso-verify-user',
    class extends LWElement {  // LWElement extends HTMLElement

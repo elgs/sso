@@ -1,9 +1,8 @@
+import { context } from '../../services/context.js';
+import dialog from '../../services/dialog.js';
 import LWElement from './../../lib/lw-element.js';
 import ast from './ast.js';
 
-import { api, http } from '../../services/http-client.js';
-import { context } from '../../services/context.js';
-import dialog from '../../services/dialog.js';
 
 
 customElements.define('sso-login',
@@ -21,6 +20,14 @@ customElements.define('sso-login',
          if (event && event.key !== 'Enter') {
             return;
          }
+         if (this.context.return_url) {
+            this.loginSSO();
+         } else {
+            this.loginLocal();
+         }
+      }
+
+      async loginLocal() {
          this.isLoading = true;
          this.update();
          const user = await this.context.login(this.username, this.password);
@@ -43,8 +50,28 @@ customElements.define('sso-login',
          }
       }
 
-      loginSSO() {
-         this.context.loginSSO(this.username, this.password);
+      async loginSSO() {
+         this.isLoading = true;
+         this.update();
+         const accessToken = await this.context.getAccessToken(this.username, this.password);
+         this.isLoading = false;
+         if (accessToken) {
+            if (this.context.return_url.indexOf('?') > 0) {
+               location.href = this.context.return_url + '&' + (this.context.token_key ?? 'access_token') + '=' + accessToken;
+            } else {
+               location.href = this.context.return_url + '?' + (this.context.token_key ?? 'access_token') + '=' + accessToken;
+            }
+            this.username = '';
+            this.password = '';
+
+         } else {
+            dialog.alert({
+               level: 'danger',
+               title: 'Failed',
+               message: 'Login failed.'
+            });
+            return;
+         }
       }
 
       forgetPassword() {
