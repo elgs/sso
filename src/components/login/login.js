@@ -19,9 +19,9 @@ customElements.define('sso-login',
             return;
          }
          if (this.context.return_url) {
-            this.loginSSO();
+            await this.loginSSO();
          } else {
-            this.loginLocal();
+            await this.loginLocal();
          }
       }
 
@@ -53,15 +53,14 @@ customElements.define('sso-login',
          this.update();
          const accessToken = await this.context.getAccessToken(this.username, this.password);
          this.isLoading = false;
+         this.username = '';
+         this.password = '';
          if (accessToken) {
             if (this.context.return_url.indexOf('?') > 0) {
                location.href = this.context.return_url + '&' + (this.context.token_key ?? 'access_token') + '=' + accessToken;
             } else {
                location.href = this.context.return_url + '?' + (this.context.token_key ?? 'access_token') + '=' + accessToken;
             }
-            this.username = '';
-            this.password = '';
-
          } else {
             dialog.alert({
                level: 'danger',
