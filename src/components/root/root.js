@@ -16,7 +16,7 @@ customElements.define('sso-root',
 
       async domReady() {
          await this.context.session();
-         if (!this.context.user && leanweb.urlHashPath.startsWith('#/dashboard')) {
+         if (!this.context.user && (leanweb.urlHashPath.startsWith('#/dashboard') || !leanweb.urlHashPath)) {
             leanweb.urlHashPath = '#/login';
          } else {
             if (!leanweb.urlHashPath) {
