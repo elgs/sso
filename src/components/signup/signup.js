@@ -30,6 +30,7 @@ customElements.define('sso-signup',
             ]
          });
          this.isLoading = false;
+         this.update();
 
          if (response?.signup === 1 && response?.create_flag === 1) {
             const user = await this.context.login(this.username, this.password);

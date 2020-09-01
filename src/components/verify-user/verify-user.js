@@ -26,6 +26,7 @@ customElements.define('sso-verify-user',
             params: [this.verificationCode],
          });
          this.isLoading = false;
+         this.update();
          if (response?.delete_flag === 1) {
             this.context.session(true);
             leanweb.urlHashPath = '#/dashboard';

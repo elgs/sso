@@ -23,6 +23,7 @@ customElements.define('sso-reset-password',
             params: [this.username, this.newPassword],
          });
          this.isLoading = false;
+         this.update();
          if (response.err) {
             dialog.alert({
                level: 'danger',

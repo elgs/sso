@@ -30,6 +30,7 @@ customElements.define('sso-login',
          this.update();
          const user = await this.context.login(this.username, this.password);
          this.isLoading = false;
+         this.update();
          this.username = '';
          this.password = '';
          if (!user) {
@@ -55,6 +56,7 @@ customElements.define('sso-login',
          this.isLoading = false;
          this.username = '';
          this.password = '';
+         this.update();
          if (accessToken) {
             if (this.context.return_url.indexOf('?') > 0) {
                location.href = this.context.return_url + '&' + (this.context.token_key ?? 'access_token') + '=' + accessToken;

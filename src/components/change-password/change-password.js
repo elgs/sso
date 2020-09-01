@@ -23,6 +23,7 @@ customElements.define('sso-change-password',
             params: [this.newPassword, this.oldPassword],
          });
          this.isLoading = false;
+         this.update();
          if (response?.change_password !== 1) {
             dialog.alert({
                level: 'danger',

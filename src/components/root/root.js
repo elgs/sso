@@ -15,18 +15,24 @@ customElements.define('sso-root',
       }
 
       async domReady() {
+         await this.loginGuard();
+      }
+
+      async urlHashChanged() {
+         await this.loginGuard();
+         this.update();
+      }
+
+      async loginGuard() {
+         console.log(leanweb.urlHashPath);
          await this.context.session();
-         if (!this.context.user && (leanweb.urlHashPath.startsWith('#/dashboard') || !leanweb.urlHashPath)) {
+         if (!this.context.user && (leanweb.urlHashPath.startsWith('#/dashboard') || !leanweb.urlHashPath || leanweb.urlHashPath === '#/')) {
             leanweb.urlHashPath = '#/login';
          } else {
-            if (!leanweb.urlHashPath) {
+            if (!leanweb.urlHashPath || leanweb.urlHashPath === '#/') {
                leanweb.urlHashPath = '#/dashboard';
             }
          }
-      }
-
-      urlHashChanged() {
-         this.update();
       }
    }
 );
