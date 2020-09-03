@@ -13,7 +13,7 @@ customElements.define('sso-verify-user',
       }
 
       async domReady() {
-         if (!await this.context.session()) {
+         if (leanweb.urlHashPath === '#/verify-user' && !await this.context.session()) {
             leanweb.urlHashPath = '#/login';
          }
       }
