@@ -12,6 +12,12 @@ customElements.define('sso-verify-user',
          this.context = context;
       }
 
+      async domReady() {
+         if (!await this.context.session()) {
+            leanweb.urlHashPath = '#/login';
+         }
+      }
+
       turnedOn() {
          this.shadowRoot.querySelector('input:not([lw-false])[auto-focus]')?.focus();
       }

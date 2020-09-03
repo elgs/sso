@@ -9,6 +9,12 @@ customElements.define('sso-forget-password',
          super(ast);
       }
 
+      domReady() {
+         if (!this.username && leanweb.urlHashPath === '#/forget-password-reset-password') {
+            leanweb.urlHashPath = '#/forget-password-send-code';
+         }
+      }
+
       turnedOn() {
          const autoFocusInputs = this.shadowRoot.querySelectorAll('.auto-focus');
          if (leanweb.urlHashPath === '#/forget-password-send-code') {
