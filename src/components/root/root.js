@@ -24,7 +24,6 @@ customElements.define('sso-root',
       }
 
       async loginGuard() {
-         console.log(leanweb.urlHashPath);
          await this.context.session();
          if (!this.context.user && (leanweb.urlHashPath.startsWith('#/dashboard') || !leanweb.urlHashPath || leanweb.urlHashPath === '#/')) {
             leanweb.urlHashPath = '#/login';

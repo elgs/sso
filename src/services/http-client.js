@@ -33,8 +33,6 @@ class APIClient {
    options(url, data, headers) { return this._fetch('OPTIONS', url, data, headers); }
 }
 
-const apiUrl = 'https://sso.az.ht:1443';
-// const apiUrl = 'http://localhost:1103';
-
-export const api = new APIClient(apiUrl, true);
-export const http = new APIClient(apiUrl);
+import env from '../env';
+export const api = new APIClient(env.apiUrl, true);
+export const http = new APIClient(env.apiUrl);

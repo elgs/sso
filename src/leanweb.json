@@ -1,20 +1,20 @@
 {
-   "name": "sso",
-   "version": "0.8.0",
-   "components": [
-      "root",
-      "login",
-      "signup",
-      "change-password",
-      "forget-password",
-      "verify-user",
-      "reset-password",
-      "dashboard",
-      "_shared/alert"
-   ],
-   "imports": [],
-   "resources": [
-      "resources/"
-   ],
-   "electron": true
+  "name": "sso",
+  "version": "0.8.2",
+  "components": [
+    "root",
+    "login",
+    "signup",
+    "change-password",
+    "forget-password",
+    "verify-user",
+    "reset-password",
+    "dashboard",
+    "_shared/alert"
+  ],
+  "imports": [],
+  "resources": [
+    "resources/"
+  ],
+  "electron": true
 }
