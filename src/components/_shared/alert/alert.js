@@ -22,6 +22,7 @@ customElements.define('sso-alert',
       }
 
       domReady() {
+         this.modal.querySelector('article.message').classList.add(this.level);
          this.modal.focus();
       }
    }
