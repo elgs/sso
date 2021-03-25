@@ -105,8 +105,7 @@ export default class LWElement extends HTMLElement {
       leanweb.builderVersion = ast.builderVersion;
 
       const node = document.createElement('template');
-      node.innerHTML = '<style>' + ast.globalCss + '</style>' +
-         '<style>' + ast.css + '</style>' +
+      node.innerHTML = '<style>' + ast.css + '</style>' +
          ast.html;
       this.attachShadow({ mode: 'open' }).appendChild(node.content);
 
@@ -280,6 +279,8 @@ export default class LWElement extends HTMLElement {
          }
 
          if (modelNode.type === 'number') {
+            // set do_not_update mark for cases when user inputs 0.01, 0.0 will not be evaluated prematurely
+            modelNode.do_not_update = true;
             object[propertyExpr] = modelNode.value * 1;
          } else if (modelNode.type === 'checkbox') {
             if (!Array.isArray(object[propertyExpr])) {
@@ -308,10 +309,14 @@ export default class LWElement extends HTMLElement {
             object[propertyExpr] = modelNode.value;
          }
          this.update();
+         delete modelNode.do_not_update;
       }).bind(this));
    }
 
    updateModel(modelNode) {
+      if (modelNode.do_not_update && modelNode.type === 'number') {
+         return;
+      }
       const key = modelNode.getAttribute('lw-model');
       if (!key) {
          return;
@@ -331,7 +336,10 @@ export default class LWElement extends HTMLElement {
             }
          }
       } else {
-         modelNode.value = parsed[0] ?? '';
+         const newValue = parsed[0] ?? '';
+         if (modelNode.value !== newValue) {
+            modelNode.value = newValue;
+         }
       }
    }
 

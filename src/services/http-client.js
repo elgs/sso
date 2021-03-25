@@ -33,6 +33,6 @@ class APIClient {
    options(url, data, headers) { return this._fetch('OPTIONS', url, data, headers); }
 }
 
-import env from '../env';
+import env from '../env.js';
 export const api = new APIClient(env.apiUrl, true);
 export const http = new APIClient(env.apiUrl);
